@@ -10,15 +10,21 @@ import SwiftUI
 struct ContentView: View {
     @State var name = ""
     @State var Items = ["RedBull", "Juice", "Pepsi", "Mars", "Chips"]
+    @State var SelectedItemIndex = 0
     var body: some View {
         VStack{
             List(Items, id: \.self){ Item in
-                HStack{
-                    Image(Item)
-                        .resizable()
-                        .frame(width:15, height: 30)
-                    Text(Item)
-                        .font(.title2)
+                Button(action: {
+                    SelectedItemIndex = Items.firstIndex(of: Item) ?? 0
+                }) {
+                    HStack{
+                        Image(Item)
+                            .resizable()
+                            .frame(width:15, height: 30)
+                        Text(Item)
+                            .font(.title2)
+                    }
+
                 }
             }
                 HStack{
@@ -41,7 +47,7 @@ struct ContentView: View {
                     
                     Button(action: {
                         if !Items.isEmpty{
-                            Items.remove(at:0)
+                            Items.remove(at:SelectedItemIndex)
                         }
                         
                 
